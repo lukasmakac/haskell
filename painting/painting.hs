@@ -18,6 +18,13 @@ square_fun :: Shape -> [Point]
 square_fun (Square { topLeft = (Point p1 p2), size = s })
     = [(Point 0 0)]
 
+-- decide which function apply to Shape
+apply :: Shape -> [Point] 
+apply shape 
+    = case shape of 
+        Ellipse _ _ _ -> ellipse_fun shape
+        Square _ _ -> square_fun shape
+
 -- function merges 2..n lists (2D - arrays) into single one 
 merge :: [[Point]] -> [Point]
 merge screens 
@@ -25,8 +32,12 @@ merge screens
 
 -- view 
 view :: (Int, Int) -> [Shape] -> Result
-view size shapes = 
-    ["Hello"]
+view size shapes = let
+    screens' = map (apply) shapes
+    in ["Hello"]
+
+
+
 
 
 -- pp(view (40,15) [Ellipse (Point 8 4) (Point 16 4) 6, Square {topLeft = Point 15 5, size = 6 }, Ellipse (Point 25 7) (Point 35 12) 7] )
