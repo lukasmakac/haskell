@@ -56,9 +56,13 @@ ticktack :: (Int, Int) -> [(Int, Int)] -> Result
 ticktack size coordinates = let
     points' = points(size)
     coordinates' = map (compute_single) (zip [1..] coordinates)
-    result' = (map (compute size coordinates') points')
+    result' = map (compute size coordinates') points'
     
     -- split by line size (width + 2) and reverse symetrically to get proper indices positions
     in map (reverse) (group (fst size+2) (reverse result'))
      
-  -- pp(ticktack (3,3) [(1,1), (3,3), (2,3), (1,3)] )
+-- pp(ticktack (3,3) [(1,1), (3,3), (2,3), (1,3)])
+-- [(1,1), (2,2)] -> [ (1, (1,1)), (2, (2,2)) ] -> [ ('X', (1,1)), ('0', (2,2)) ]
+-- points' = [(0,0), (0,1), (0,2), ... ]
+-- compute (3,3) [ ('X', (1,1)), ('0', (2,2)) ] (0,0)
+-- (0,0) ->
